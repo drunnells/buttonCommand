@@ -43,6 +43,9 @@ func moveForward(degrees):
 	var radians = deg2rad(degrees)  # Convert degrees to radians
 	var direction = Vector2(1, 0).rotated(radians)  # Get direction vector
 	move_and_slide(direction * speed)  # Move the sprite
+	for i in range(get_slide_count()):
+		var collision = get_slide_collision(i)
+		print("COLLIDED WITH: ", collision.collider.name)
 
 func _process(delta):
 	moveForward(moveToDeg)

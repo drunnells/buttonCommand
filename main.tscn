@@ -16,7 +16,13 @@ script = ExtResource( 4 )
 [node name="wallSprite" type="Sprite" parent="mazeMap"]
 scale = Vector2( 0.00025, 0.00025 )
 
-[node name="Polygon2D" type="Polygon2D" parent="mazeMap/wallSprite"]
+[node name="RigidBody2D" type="RigidBody2D" parent="mazeMap/wallSprite"]
+mode = 1
+
+[node name="Polygon2D" type="Polygon2D" parent="mazeMap/wallSprite/RigidBody2D"]
+polygon = PoolVector2Array( 0, 0, 50, 0, 50, 50, 0, 50 )
+
+[node name="CollisionPolygon" type="CollisionPolygon2D" parent="mazeMap/wallSprite/RigidBody2D"]
 polygon = PoolVector2Array( 0, 0, 50, 0, 50, 50, 0, 50 )
 
 [node name="playerSprite" type="KinematicBody2D" parent="."]
@@ -45,6 +51,11 @@ polygon = PoolVector2Array( 0, 0, 50, 0, 100, 50, 100, 100, 50, 150, 0, 150, -50
 position = Vector2( -99.6, -37 )
 scale = Vector2( 0.3, 0.3 )
 color = Color( 0.0745098, 0.368627, 0.0352941, 1 )
+polygon = PoolVector2Array( 192, 64, 384, 64, 384, 0, 512, 128, 384, 256, 384, 192, 192, 192 )
+
+[node name="playerShape2" type="CollisionPolygon2D" parent="playerSprite"]
+position = Vector2( -99.6, -37 )
+scale = Vector2( 0.3, 0.3 )
 polygon = PoolVector2Array( 192, 64, 384, 64, 384, 0, 512, 128, 384, 256, 384, 192, 192, 192 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
