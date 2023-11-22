@@ -7,9 +7,9 @@ var dotOn = 0
 var dotAction = "off"
 var controlDotDict = {}
 var controlDotActionColors = {
-	"off": Color8(0,0,255),
-	"moveLeft": Color8(255,0,0),
-	"moveRight": Color8(0,255,0),
+	"off": Color8(0,0,255,128),
+	"moveLeft": Color8(255,0,0,128),
+	"moveRight": Color8(0,255,0,255),
 }
 
 # Called when the node enters the scene tree for the first time.

@@ -1,7 +1,6 @@
 extends Node2D
 
 var dotsTimer = Timer.new()
-var playerDirectionDeg = 0
 var controlDotsNode
 var playerNode
 var lastPlayerAction = "off"
@@ -18,10 +17,6 @@ func startDotsTimer(timerSecs):
 	dotsTimer.set_wait_time(timerSecs)
 	dotsTimer.set_one_shot(false) # Make sure it loops
 	dotsTimer.start()
-
-func setPlayerDirection(inDeg):
-	playerDirectionDeg = inDeg
-	playerNode.setMoveDeg(playerDirectionDeg)
 
 func getDotOn():
 	return controlDotsNode.dotOn
@@ -43,14 +38,13 @@ func _input(ev):
 func setPlayerAction(inAction):
 	match inAction:
 		"moveLeft":
-			setPlayerDirection(playerDirectionDeg - 45)
+			playerNode.setMoveDeg(-45)
 		"moveRight":
-			setPlayerDirection(playerDirectionDeg + 45)
+			playerNode.setMoveDeg(45)
 		"off":
 			pass
 		_:
 			pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
