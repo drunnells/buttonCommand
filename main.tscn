@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://controlDots.gd" type="Script" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
@@ -48,12 +48,16 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="CircleShape2D" id=8]
+radius = 15.0333
+
 [node name="main" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="mazeMap" type="Node2D" parent="."]
 
 [node name="playerSprite" type="KinematicBody2D" parent="."]
+collision_layer = 4
 script = ExtResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="playerSprite"]
@@ -106,3 +110,21 @@ polygon = PoolVector2Array( 82.6525, 0, 107.448, -14.2154, 115.714, -18.9539, 28
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+
+[node name="bullet" type="RigidBody2D" parent="."]
+position = Vector2( 0, -100 )
+collision_layer = 8
+collision_mask = 8
+
+[node name="Polygon2D" type="Polygon2D" parent="bullet"]
+position = Vector2( 4, 0 )
+color = Color( 0.992157, 0, 1, 1 )
+offset = Vector2( 59, 0 )
+polygon = PoolVector2Array( -71, -2, -47, 0, -47, 0, -71, 2 )
+
+[node name="Area2D" type="Area2D" parent="bullet"]
+collision_layer = 8
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bullet/Area2D"]
+shape = SubResource( 8 )

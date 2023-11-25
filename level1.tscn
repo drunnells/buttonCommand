@@ -16,6 +16,7 @@ z_index = -99
 texture = ExtResource( 2 )
 
 [node name="RigidBody2D" type="RigidBody2D" parent="mazeMap/floor" index="0"]
+collision_mask = 9
 mode = 1
 
 [node name="CollisionPolygon2D12" type="CollisionPolygon2D" parent="mazeMap/floor/RigidBody2D" index="0"]

@@ -2,7 +2,7 @@ extends Node2D
 
 var numDots = 0
 var controlDotsArray = []
-var controlDotMode = "start"
+var controlDotMode = "gun"
 var dotOn = 0
 var dotAction = "off"
 var controlDotDict = {}
@@ -10,6 +10,7 @@ var controlDotActionColors = {
 	"off": Color8(0,0,255,128),
 	"moveLeft": Color8(255,0,0,128),
 	"moveRight": Color8(0,255,0,255),
+	"fire": Color8(255,0,255,230),
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -55,6 +56,10 @@ func getControlDotDict():
 		"start": {
 			0: "off", 1: "moveRight", 2: "moveRight", 3: "moveRight", 4: "moveRight", 5: "moveRight", 6: "moveRight", 7: "moveRight", 8: "moveRight", 9: "moveRight",
 			10: "off", 11: "moveLeft", 12: "moveLeft", 13: "moveLeft", 14: "moveLeft", 15: "moveLeft", 16: "moveLeft", 17: "moveLeft", 18: "moveLeft", 19: "moveLeft",
+		},
+		"gun": {
+			0: "fire", 1: "fire", 2: "moveRight", 3: "moveRight", 4: "moveRight", 5: "moveRight", 6: "moveRight", 7: "moveRight", 8: "moveRight", 9: "moveRight",
+			10: "off", 11: "moveLeft", 12: "moveLeft", 13: "moveLeft", 14: "moveLeft", 15: "moveLeft", 16: "moveLeft", 17: "moveLeft", 18: "moveLeft", 19: "fire",
 		}
 	}
 	return toReturn

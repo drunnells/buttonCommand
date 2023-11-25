@@ -15,6 +15,9 @@ func _ready():
 	shadowSprite.play("shadow")
 	$AnimatedSprite.play("default")
 
+func fireGun():
+	get_node("..").addPlayerBullet(global_position,moveToDeg)
+
 func setMoveDeg(inDeg):
 	var newDeg = moveToDeg + inDeg
 	# Normalize the new target degree
@@ -22,8 +25,6 @@ func setMoveDeg(inDeg):
 	if newDeg < 0:
 		newDeg += 360
 	moveToDeg = newDeg
-	print("ROTATE TO: " + str(moveToDeg))
-	print(global_position)
 
 	var current_rotation_degrees = rad2deg(rotation)
 	var target_rotation_degrees = moveToDeg
@@ -54,7 +55,7 @@ func moveForward(degrees):
 	var _velocity = move_and_slide(direction * speed)  # Move the sprite
 	for i in range(get_slide_count()):
 		var collision = get_slide_collision(i)
-		print("COLLIDED WITH: ", collision.collider.name)
+		#print("COLLIDED WITH: ", collision.collider.name)
 	if (abs(global_position.x) > get_node("..").levelLimit.x):
 		global_position.x = origPos.x
 	if (abs(global_position.y) > get_node("..").levelLimit.y):

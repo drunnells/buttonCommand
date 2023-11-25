@@ -8,6 +8,7 @@ export(Vector2) var levelLimit = Vector2(100,100)
 
 
 func _ready():
+	$bullet.visible = false
 	$Camera2D.limit_left = levelLimit.x * -1
 	$Camera2D.limit_right = levelLimit.x
 	$Camera2D.limit_top = levelLimit.y * -1
@@ -35,7 +36,6 @@ func _on_Timer_timeout():
 
 func _input(_ev):
 	if Input.is_key_pressed(KEY_SPACE):
-		print("SPACE")
 		var curDotAction = getDotAction()
 		print("DOT ACTION: " + curDotAction)
 		setPlayerAction(curDotAction)
@@ -46,10 +46,27 @@ func setPlayerAction(inAction):
 			playerNode.setMoveDeg(-45)
 		"moveRight":
 			playerNode.setMoveDeg(45)
+		"fire":
+			playerNode.fireGun()
 		"off":
 			pass
 		_:
 			pass
 
+func addPlayerBullet(startPos,rotDeg):
+	print(startPos)
+	var newBullet = $bullet.duplicate()
+	add_child(newBullet)
+	newBullet.global_position = startPos
+	newBullet.rotation_degrees = rotDeg
+	newBullet.visible = true
+	newBullet.get_node("Area2D").connect("body_entered", self, "_on_player_bullet_contact", [newBullet])
+	var bulletDirection = Vector2(cos(deg2rad(rotDeg)),sin(deg2rad(rotDeg)))
+	newBullet.apply_impulse(Vector2(),bulletDirection.normalized() * 400)
+
 func _process(_delta):
 	pass
+
+func _on_player_bullet_contact(body,bullet):
+	print("GOT HERE")
+	bullet.queue_free()
