@@ -56,10 +56,10 @@ func moveForward(degrees):
 	for i in range(get_slide_count()):
 		var collision = get_slide_collision(i)
 		#print("COLLIDED WITH: ", collision.collider.name)
-	if (abs(global_position.x) > get_node("..").levelLimit.x):
-		global_position.x = origPos.x
-	if (abs(global_position.y) > get_node("..").levelLimit.y):
-		global_position.y = origPos.y
+	#if (abs(global_position.x) > get_node("..").levelLimit.x):
+	#	global_position.x = origPos.x
+	#if (abs(global_position.y) > get_node("..").levelLimit.y):
+	#	global_position.y = origPos.y
 
 func _process(_delta):
 	moveForward(moveToDeg)

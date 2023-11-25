@@ -1,9 +1,11 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://controlDots.gd" type="Script" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
 [ext_resource path="res://player.gd" type="Script" id=3]
 [ext_resource path="res://goodGuy_spritesheet.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=9]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -48,6 +50,9 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="CircleShape2D" id=10]
+radius = 5.0
+
 [sub_resource type="CircleShape2D" id=8]
 radius = 15.0333
 
@@ -55,6 +60,13 @@ radius = 15.0333
 script = ExtResource( 2 )
 
 [node name="mazeMap" type="Node2D" parent="."]
+
+[node name="mapArea" type="Area2D" parent="mazeMap"]
+collision_layer = 2
+collision_mask = 31
+
+[node name="mapCollisionShape" type="CollisionShape2D" parent="mazeMap/mapArea"]
+shape = SubResource( 9 )
 
 [node name="playerSprite" type="KinematicBody2D" parent="."]
 collision_layer = 4
@@ -108,6 +120,13 @@ rotation = 3.14159
 scale = Vector2( 0.241977, 0.211038 )
 polygon = PoolVector2Array( 82.6525, 0, 107.448, -14.2154, 115.714, -18.9539, 289.284, -18.9539, 371.936, -14.2154, 413.263, 33.1693, 442.191, 56.8617, 458.721, 85.2926, 442.191, 104.246, 442.191, 118.462, 454.589, 123.2, 458.721, 184.801, 446.324, 199.016, 438.058, 217.97, 433.926, 227.447, 454.589, 236.924, 442.191, 265.355, 417.395, 270.093, 380.202, 322.216, 198.366, 326.955, 95.0504, 326.955, 86.7852, 312.739, 95.0504, 293.785, 90.9178, 274.832, 90.9178, 246.401, 103.316, 236.924, 70.2547, 161.108, 74.3873, 137.416, 95.0504, 66.3387, 103.316, 61.6002, 107.448, 47.3848, 95.0504, 37.9078, 82.6525, 18.9539 )
 
+[node name="playerCenterArea" type="Area2D" parent="playerSprite"]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerSprite/playerCenterArea"]
+shape = SubResource( 10 )
+
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 
@@ -122,9 +141,9 @@ color = Color( 0.992157, 0, 1, 1 )
 offset = Vector2( 59, 0 )
 polygon = PoolVector2Array( -71, -2, -47, 0, -47, 0, -71, 2 )
 
-[node name="Area2D" type="Area2D" parent="bullet"]
+[node name="bulletArea" type="Area2D" parent="bullet"]
 collision_layer = 8
 collision_mask = 9
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="bullet/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bullet/bulletArea"]
 shape = SubResource( 8 )
