@@ -27,10 +27,9 @@ func getDotAction():
 func _on_Timer_timeout():
 	controlDotsNode.nextDot()
 
-func _input(ev):
+func _input(_ev):
 	if Input.is_key_pressed(KEY_SPACE):
 		print("SPACE")
-		var curDotOn = getDotOn()
 		var curDotAction = getDotAction()
 		print("DOT ACTION: " + curDotAction)
 		setPlayerAction(curDotAction)
@@ -46,5 +45,5 @@ func setPlayerAction(inAction):
 		_:
 			pass
 
-func _process(delta):
+func _process(_delta):
 	pass

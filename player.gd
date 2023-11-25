@@ -4,9 +4,16 @@ var speed = 50  # Speed of the sprite
 var moveToDeg = 0
 var rotationSpeed = 500
 var tween = Tween.new()
+var shadowSprite
 
 func _ready():
 	add_child(tween)
+	shadowSprite = $AnimatedSprite.duplicate()
+	add_child(shadowSprite)
+	shadowSprite.visible = true
+	shadowSprite.z_index = $AnimatedSprite.z_index -1
+	shadowSprite.play("shadow")
+	$AnimatedSprite.play("default")
 
 func setMoveDeg(inDeg):
   var newDeg = moveToDeg + inDeg
@@ -42,10 +49,12 @@ func setMoveDeg(inDeg):
 func moveForward(degrees):
 	var radians = deg2rad(degrees)  # Convert degrees to radians
 	var direction = Vector2(1, 0).rotated(radians)  # Get direction vector
-	move_and_slide(direction * speed)  # Move the sprite
+	var _velocity = move_and_slide(direction * speed)  # Move the sprite
 	for i in range(get_slide_count()):
 		var collision = get_slide_collision(i)
 		print("COLLIDED WITH: ", collision.collider.name)
 
-func _process(delta):
+func _process(_delta):
 	moveForward(moveToDeg)
+	shadowSprite.global_position.x = global_position.x + 7
+	shadowSprite.global_position.y = global_position.y + 7

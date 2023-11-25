@@ -20,14 +20,14 @@ func _ready():
 # Circle of dots that control the navigation of the main character sprite
 func initDots(inNumDots):
 	numDots = inNumDots
-	for dotOn in numDots:
+	for _dotOn in numDots:
 		controlDotsArray.push_back($controlDotTemplate.duplicate())
-		controlDotsArray[dotOn].visible = true
-		add_child(controlDotsArray[dotOn])
+		controlDotsArray[_dotOn].visible = true
+		add_child(controlDotsArray[_dotOn])
 		var rotateInc = 360/numDots
-		var rotateTo = rotateInc * dotOn
-		controlDotsArray[dotOn].rotation_degrees = rotateTo
-		setDotColor(dotOn,false)
+		var rotateTo = rotateInc * _dotOn
+		controlDotsArray[_dotOn].rotation_degrees = rotateTo
+		setDotColor(_dotOn,false)
 
 # Set the color of a dot in the navigation circle
 func setDotColor(inDotNum,isSelected):
@@ -46,7 +46,7 @@ func nextDot():
 	setDotColor(dotOn,true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
 # Dictionary of player control dots for each mode
