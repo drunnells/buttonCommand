@@ -9,6 +9,7 @@
 radius = 43.1856
 
 [node name="main" instance=ExtResource( 1 )]
+levelLimit = Vector2( 1000, 1000 )
 
 [node name="floor" type="Sprite" parent="mazeMap" index="0"]
 z_index = -99
@@ -342,3 +343,6 @@ scale = Vector2( 0.3, 0.3 )
 position = Vector2( -25, -75 )
 antialiased = true
 polygon = PoolVector2Array( 0, 0, 50, 0, 100, 50, 100, 100, 50, 150, 0, 150, -50, 100, -50, 50 )
+
+[node name="Camera2D" parent="." index="2"]
+limit_smoothed = true

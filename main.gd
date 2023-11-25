@@ -4,8 +4,14 @@ var dotsTimer = Timer.new()
 var controlDotsNode
 var playerNode
 var lastPlayerAction = "off"
+export(Vector2) var levelLimit = Vector2(100,100)
+
 
 func _ready():
+	$Camera2D.limit_left = levelLimit.x * -1
+	$Camera2D.limit_right = levelLimit.x
+	$Camera2D.limit_top = levelLimit.y * -1
+	$Camera2D.limit_bottom = levelLimit.y
 	playerNode = $playerSprite
 	controlDotsNode = playerNode.get_node("controlDots")
 	controlDotsNode.initDots(20)
