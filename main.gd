@@ -6,6 +6,8 @@ var bulletDamage = 10
 var itemHealthValue = 20
 var itemSpeedUpValue = 20
 var itemSpeedDownValue = 20
+var itemBulletsValue = 1
+var bulletCount = 0
 
 var dotsTimer = Timer.new()
 var controlDotsNode
@@ -39,6 +41,11 @@ func _ready():
 	startDotsTimer(0.5)
 
 	$mazeMap.dropItems(dropItems)
+
+func is_in_root_scene():
+	var current_scene = get_tree().current_scene
+	var root_scene = get_tree().root.get_child(0)  # The first child of the root is typically the main running scene
+	return current_scene == root_scene
 
 func _on_map_exit(body):
 	print("AREA EXIT")
@@ -104,7 +111,9 @@ func addBullet(startPos,rotDeg,bulletType):
 	newBullet.apply_impulse(Vector2(),bulletDirection.normalized() * bulletSpeed)
 
 func addPlayerBullet(startPos,rotDeg):
-	addBullet(startPos,rotDeg,"player")
+	if bulletCount > 0:
+		bulletCount = bulletCount - 1
+		addBullet(startPos,rotDeg,"player")
 
 func addBadGuyBullet(startPos,rotDeg):
 	addBullet(startPos,rotDeg,"badGuy")
@@ -145,6 +154,14 @@ func _on_bullet_contact(body,bullet,bulletType):
 	if bulletType == "badGuy" && body.name == "playerSprite":
 		playerHealth = playerHealth - bulletDamage
 
+	if playerHealth <= 0:
+		print("GAME OVER")
+		get_tree().change_scene("res://noLevel.tscn")
+
+	if badGuyHealth <= 0:
+		print("YOU WIN!")
+		get_tree().change_scene("res://noLevel.tscn")
+
 	var timer = Timer.new()
 	timer.wait_time = 3
 	timer.one_shot = true
@@ -161,11 +178,12 @@ func _bullet_queue_free(node, timer):
 		print("INVALID BULLET NODE")
 
 func updateHud():
-	$HUD.get_node("hudContainer/hudInfo").text = "Player Health: " + String(playerHealth) + "\nBad Guy Health: " + String(badGuyHealth)
+	$HUD.get_node("hudContainer/hudInfo").text = "Player Health: " + String(playerHealth) + "\nBad Guy Health: " + String(badGuyHealth) + "\nBullets: " + String(bulletCount)
 
 func applyItem(itemType):
 	match(itemType):
 		"bullets":
+			bulletCount = bulletCount + itemBulletsValue
 			pass
 		"faster":
 			pass

@@ -36,16 +36,17 @@ func _process(delta):
 func dropItems(dropMax):
 	for onItem in range(dropMax):
 		var randType = ""
-		var randTypeId = randi() % 4
+		#var randTypeId = randi() % 4
+		var randTypeId = randi() % 2
 		match(randTypeId):
 			0:
-				randType = "bullets"
-			1:
-				randType = "faster"
-			2:
 				randType = "health"
-			3:
-				randType = "slower"
+			1:
+				randType = "bullets"
+			#2:
+			#	randType = "faster"
+			#3:
+			#	randType = "slower"
 		var randX = (randi() % int(get_node("..").levelLimit.x * 2)) - get_node("..").levelLimit.x
 		var randY = (randi() % int(get_node("..").levelLimit.y * 2)) - get_node("..").levelLimit.y
 		addItem(randType,Vector2(randX,randY))

@@ -471,7 +471,7 @@ limit_smoothed = true
 [node name="bulletAnimatedSprite" parent="bullet" index="0"]
 scale = Vector2( 0.2, 0.2 )
 animation = "default"
-frame = 1
+frame = 3
 playing = true
 
 [node name="bulletArea" parent="bullet" index="1"]
