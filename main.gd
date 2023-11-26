@@ -90,5 +90,5 @@ func _process(_delta):
 	pass
 
 func _on_player_bullet_contact(body,bullet):
-	print("OBJECT HIT")
+	print("OBJECT HIT: " + String(body.name))
 	bullet.queue_free()

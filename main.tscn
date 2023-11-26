@@ -69,6 +69,7 @@ collision_mask = 31
 shape = SubResource( 9 )
 
 [node name="playerSprite" type="KinematicBody2D" parent="."]
+z_as_relative = false
 collision_layer = 4
 script = ExtResource( 3 )
 

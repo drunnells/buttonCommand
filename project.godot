@@ -23,8 +23,9 @@ common/drop_mouse_on_gui_input_disabled=true
 2d_physics/layer_1="Wall"
 2d_physics/layer_2="Map Area"
 2d_physics/layer_3="Player Shape"
-2d_physics/layer_4="Player Center Area"
-2d_physics/layer_5="Player Boundry Collision Area"
+2d_physics/layer_4="Bullet Area"
+2d_physics/layer_5="Player Center Area"
+2d_physics/layer_6="BadGuy"
 
 [physics]
 
