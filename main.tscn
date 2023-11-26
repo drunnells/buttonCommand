@@ -1,9 +1,11 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://controlDots.gd" type="Script" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
 [ext_resource path="res://player.gd" type="Script" id=3]
 [ext_resource path="res://goodGuy_spritesheet.png" type="Texture" id=4]
+[ext_resource path="res://bullet_spritesheet.png" type="Texture" id=5]
+[ext_resource path="res://bang_spritesheet.png" type="Texture" id=6]
 
 [sub_resource type="RectangleShape2D" id=9]
 
@@ -52,6 +54,64 @@ animations = [ {
 
 [sub_resource type="CircleShape2D" id=10]
 radius = 5.0
+
+[sub_resource type="AtlasTexture" id=11]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 470, 0, 235, 100 )
+
+[sub_resource type="AtlasTexture" id=12]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 0, 100, 235, 100 )
+
+[sub_resource type="AtlasTexture" id=13]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 235, 100, 235, 100 )
+
+[sub_resource type="AtlasTexture" id=14]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 470, 100, 235, 100 )
+
+[sub_resource type="AtlasTexture" id=16]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 130, 130 )
+
+[sub_resource type="AtlasTexture" id=17]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 130, 0, 130, 130 )
+
+[sub_resource type="AtlasTexture" id=18]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 260, 0, 130, 130 )
+
+[sub_resource type="AtlasTexture" id=19]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 0, 130, 130, 130 )
+
+[sub_resource type="AtlasTexture" id=20]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 130, 130, 130, 130 )
+
+[sub_resource type="SpriteFrames" id=15]
+animations = [ {
+"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "default",
+"speed": 25.0
+}, {
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), null ],
+"loop": false,
+"name": "hit",
+"speed": 15.0
+} ]
 
 [sub_resource type="CircleShape2D" id=8]
 radius = 15.0333
@@ -136,11 +196,11 @@ position = Vector2( 0, -100 )
 collision_layer = 8
 collision_mask = 8
 
-[node name="Polygon2D" type="Polygon2D" parent="bullet"]
-position = Vector2( 4, 0 )
-color = Color( 0.992157, 0, 1, 1 )
-offset = Vector2( 59, 0 )
-polygon = PoolVector2Array( -71, -2, -47, 0, -47, 0, -71, 2 )
+[node name="bulletAnimatedSprite" type="AnimatedSprite" parent="bullet"]
+rotation = 3.14159
+scale = Vector2( 0.1, 0.1 )
+frames = SubResource( 15 )
+animation = "hit"
 
 [node name="bulletArea" type="Area2D" parent="bullet"]
 collision_layer = 8

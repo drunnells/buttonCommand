@@ -4,6 +4,7 @@ var dotsTimer = Timer.new()
 var controlDotsNode
 var playerNode
 var lastPlayerAction = "off"
+var bulletSpeed = 500
 export(Vector2) var levelLimit = Vector2(200,200)
 
 
@@ -82,13 +83,30 @@ func addPlayerBullet(startPos,rotDeg):
 	newBullet.global_position = startPos
 	newBullet.rotation_degrees = rotDeg
 	newBullet.visible = true
+	#newBullet.bulletAnimatedSprite.play("default")
 	newBullet.get_node("bulletArea").connect("body_entered", self, "_on_player_bullet_contact", [newBullet])
 	var bulletDirection = Vector2(cos(deg2rad(rotDeg)),sin(deg2rad(rotDeg)))
-	newBullet.apply_impulse(Vector2(),bulletDirection.normalized() * 400)
+	newBullet.apply_impulse(Vector2(),bulletDirection.normalized() * bulletSpeed)
 
 func _process(_delta):
 	pass
 
 func _on_player_bullet_contact(body,bullet):
 	print("OBJECT HIT: " + String(body.name))
-	bullet.queue_free()
+	bullet.linear_velocity = Vector2.ZERO
+	bullet.angular_velocity = 0
+	bullet.get_node("bulletAnimatedSprite").play("hit")
+	var timer = Timer.new()
+	timer.wait_time = 3
+	timer.one_shot = true
+	timer.connect("timeout", self, "_bullet_queue_free", [bullet, timer])
+	add_child(timer)
+	timer.start()
+
+func _bullet_queue_free(node, timer):
+	timer.queue_free()
+	if is_instance_valid(node):
+		node.queue_free()
+		print("KILLED BULLET")
+	else:
+		print("INVALID BULLET NODE")

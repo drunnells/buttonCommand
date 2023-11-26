@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var speed = 50  # Speed of the sprite
+var speed = 100  # Speed of the sprite
 var moveToDeg = 0
 var rotationSpeed = 500
 var tween = Tween.new()

@@ -462,3 +462,9 @@ polygon = PoolVector2Array( 0, 0, 50, 0, 100, 50, 100, 100, 50, 150, 0, 150, -50
 
 [node name="Camera2D" parent="." index="2"]
 limit_smoothed = true
+
+[node name="bulletAnimatedSprite" parent="bullet" index="0"]
+scale = Vector2( 0.2, 0.2 )
+animation = "default"
+frame = 1
+playing = true
