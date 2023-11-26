@@ -9,7 +9,6 @@ func dropItems(dropMax):
 		addItem("bullets",Vector2(-800,120))
 
 func addItem(itemType,itemLocation):
-	print("ADDING ITEM")
 	itemsTrackerArray[itemsCount] = itemType
 	itemsCount = itemsCount +1
 	var newItem = $itemArea.duplicate()

@@ -196,6 +196,19 @@ radius = 15.0333
 [node name="main" type="Node2D"]
 script = ExtResource( 2 )
 
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="hudContainer" type="VBoxContainer" parent="HUD"]
+margin_right = 185.0
+margin_bottom = 68.0
+rect_scale = Vector2( 2, 2 )
+
+[node name="hudInfo" type="Label" parent="HUD/hudContainer"]
+margin_right = 185.0
+margin_bottom = 31.0
+text = "Health:
+Enemy Health:"
+
 [node name="mazeMap" type="Node2D" parent="."]
 
 [node name="mapArea" type="Area2D" parent="mazeMap"]

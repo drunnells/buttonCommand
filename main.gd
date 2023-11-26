@@ -1,10 +1,19 @@
 extends Node2D
 
+var playerHealth = 100
+var badGuyHealth = 100
+var bulletDamage = 10
+var itemHealthValue = 20
+var itemSpeedUpValue = 20
+var itemSpeedDownValue = 20
+
 var dotsTimer = Timer.new()
 var controlDotsNode
 var playerNode
 var lastPlayerAction = "off"
 var bulletSpeed = 500
+var lastBadGuyShot = 0
+var badGuyCoolDown = 1
 export(Vector2) var levelLimit = Vector2(200,200)
 export(Vector2) var playerStartLocation = Vector2(0,0)
 export(int) var dropItems = 0
@@ -82,26 +91,60 @@ func setPlayerAction(inAction):
 		_:
 			pass
 
-func addPlayerBullet(startPos,rotDeg):
+func addBullet(startPos,rotDeg,bulletType):
 	print(startPos)
 	var newBullet = $bullet.duplicate()
 	add_child(newBullet)
 	newBullet.global_position = startPos
 	newBullet.rotation_degrees = rotDeg
 	newBullet.visible = true
-	#newBullet.bulletAnimatedSprite.play("default")
-	newBullet.get_node("bulletArea").connect("body_entered", self, "_on_player_bullet_contact", [newBullet])
+	newBullet.get_node("bulletAnimatedSprite").play("default")
+	newBullet.get_node("bulletArea").connect("body_entered", self, "_on_bullet_contact", [newBullet,bulletType])
 	var bulletDirection = Vector2(cos(deg2rad(rotDeg)),sin(deg2rad(rotDeg)))
 	newBullet.apply_impulse(Vector2(),bulletDirection.normalized() * bulletSpeed)
 
-func _process(_delta):
-	pass
+func addPlayerBullet(startPos,rotDeg):
+	addBullet(startPos,rotDeg,"player")
 
-func _on_player_bullet_contact(body,bullet):
+func addBadGuyBullet(startPos,rotDeg):
+	addBullet(startPos,rotDeg,"badGuy")
+
+func get_direction_in_degrees(from_position, to_position):
+  var direction = to_position - from_position
+  var angle_radians = atan2(direction.y, direction.x)
+  var angle_degrees = rad2deg(angle_radians)
+  return angle_degrees
+
+func _process(delta):
+	badGuyShoot(delta)
+	updateHud()
+
+func badGuyShoot(delta):
+	if lastBadGuyShot < (OS.get_unix_time() - badGuyCoolDown):
+		lastBadGuyShot = OS.get_unix_time()
+		print("FIRE")
+		var badGuyPos = get_node("mazeMap/badGuyPath/badGuyPathFollow/badGuyBody").global_position
+		var goodGuyPos = get_node("playerSprite").global_position
+		var bulletDeg = get_direction_in_degrees(badGuyPos,goodGuyPos)
+		addBadGuyBullet(badGuyPos,bulletDeg)
+
+
+func _on_bullet_contact(body,bullet,bulletType):
+	if bulletType == "player" && body.name == "playerSprite":
+		return
+	if bulletType == "badGuy" && body.name == "badGuyBody":
+		return
 	print("OBJECT HIT: " + String(body.name))
 	bullet.linear_velocity = Vector2.ZERO
 	bullet.angular_velocity = 0
 	bullet.get_node("bulletAnimatedSprite").play("hit")
+
+	if bulletType == "player" && body.name == "badGuyBody":
+		badGuyHealth = badGuyHealth - bulletDamage
+
+	if bulletType == "badGuy" && body.name == "playerSprite":
+		playerHealth = playerHealth - bulletDamage
+
 	var timer = Timer.new()
 	timer.wait_time = 3
 	timer.one_shot = true
@@ -116,3 +159,19 @@ func _bullet_queue_free(node, timer):
 		print("KILLED BULLET")
 	else:
 		print("INVALID BULLET NODE")
+
+func updateHud():
+	$HUD.get_node("hudContainer/hudInfo").text = "Player Health: " + String(playerHealth) + "\nBad Guy Health: " + String(badGuyHealth)
+
+func applyItem(itemType):
+	match(itemType):
+		"bullets":
+			pass
+		"faster":
+			pass
+		"health":
+			playerHealth = playerHealth + itemHealthValue
+			if (playerHealth > 100):
+				playerHealth = 100
+		"slower":
+			pass

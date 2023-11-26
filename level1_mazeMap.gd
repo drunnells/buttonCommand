@@ -48,11 +48,9 @@ func dropItems(dropMax):
 				randType = "slower"
 		var randX = (randi() % int(get_node("..").levelLimit.x * 2)) - get_node("..").levelLimit.x
 		var randY = (randi() % int(get_node("..").levelLimit.y * 2)) - get_node("..").levelLimit.y
-		print("ADD ITEM AT: " + String(randX) + "," + String(randY))
 		addItem(randType,Vector2(randX,randY))
 
 func addItem(itemType,itemLocation):
-	print("ADDING ITEM")
 	itemsTrackerArray[itemsCount] = itemType
 	itemsCount = itemsCount +1
 	var newItem = $itemArea.duplicate()
@@ -65,6 +63,6 @@ func addItem(itemType,itemLocation):
 
 func _on_item_touch(body,itemNode,itemId,itemType):
 	if is_instance_valid(itemNode):
-		print("TOUCHED!: " + String(itemId) + " (" + itemType + ")")
+		get_node("..").applyItem(itemType)
 		itemNode.queue_free()
 		dropItems(1)
