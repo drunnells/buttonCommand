@@ -1,21 +1,20 @@
 extends Node2D
 
-var mapSize = scale
-var mapGridSize = Vector2(80,80)
-var mapCellSize = Vector2( mapSize.x/mapGridSize.x, mapSize.y/mapGridSize.y )
+var itemsMax = 50
+var itemsCount = 0
+var itemsTrackerArray = []
 
-func _ready():
-	addWallSprite(48,40,Color8(200,100,200))
-	addWallSprite(49,40,Color8(100,200,200))
-	addWallSprite(49,41,Color8(0,200,200))
-	print(String(mapCellSize))
+func dropItems(dropMax):
+	for onItem in range(dropMax):
+		addItem("bullets",Vector2(-800,120))
 
-func addWallSprite(inX,inY,color):
-	var newWallSprite = $wallSprite.duplicate()
-	newWallSprite.modulate = color
-	newWallSprite.position = Vector2(inX/mapGridSize.x,inY/mapGridSize.y)
-	add_child(newWallSprite)
-
+func addItem(itemType,itemLocation):
+	print("ADDING ITEM")
+	itemsTrackerArray[itemsCount] = itemType
+	itemsCount = itemsCount +1
+	var newItem = $itemArea.duplicate()
+	newItem.global_position = itemLocation
+	newItem.visible = true
 #func load():
 #  var file = FileAccess.open("user://save_game.dat", FileAccess.READ)
 #  var content = file.get_as_text()

@@ -6,7 +6,8 @@ var playerNode
 var lastPlayerAction = "off"
 var bulletSpeed = 500
 export(Vector2) var levelLimit = Vector2(200,200)
-
+export(Vector2) var playerStartLocation = Vector2(0,0)
+export(int) var dropItems = 0
 
 func _ready():
 	$bullet.visible = false
@@ -14,6 +15,7 @@ func _ready():
 	$Camera2D.limit_right = levelLimit.x
 	$Camera2D.limit_top = levelLimit.y * -1
 	$Camera2D.limit_bottom = levelLimit.y
+	$mazeMap.get_node("itemArea").visible = false
 	var rectShape = RectangleShape2D.new()
 	rectShape.extents = Vector2(levelLimit.x, levelLimit.y)
 	$mazeMap/mapArea/mapCollisionShape.shape = rectShape
@@ -21,9 +23,13 @@ func _ready():
 	$mazeMap/mapArea.connect("body_exited", self, "_on_map_exit", [])
 
 	playerNode = $playerSprite
+	playerNode.global_position.x = playerStartLocation.x
+	playerNode.global_position.y = playerStartLocation.y
 	controlDotsNode = playerNode.get_node("controlDots")
 	controlDotsNode.initDots(20)
 	startDotsTimer(0.5)
+
+	$mazeMap.dropItems(dropItems)
 
 func _on_map_exit(body):
 	print("AREA EXIT")

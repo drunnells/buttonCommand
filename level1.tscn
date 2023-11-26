@@ -89,6 +89,8 @@ radius = 43.1856
 
 [node name="main" instance=ExtResource( 1 )]
 levelLimit = Vector2( 1000, 1000 )
+playerStartLocation = Vector2( -800, 120 )
+dropItems = 10
 
 [node name="mazeMap" parent="." index="0"]
 script = ExtResource( 6 )
@@ -440,6 +442,9 @@ polygon = PoolVector2Array( 590, -756, 635, -760, 633, -684, 598, -690 )
 z_index = 99
 z_as_relative = false
 texture = ExtResource( 3 )
+
+[node name="AnimatedSprite" parent="mazeMap/itemArea" index="2"]
+visible = true
 
 [node name="playerSprite" parent="." index="1"]
 collision_mask = 33

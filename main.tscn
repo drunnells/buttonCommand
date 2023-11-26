@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://controlDots.gd" type="Script" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
@@ -6,8 +6,85 @@
 [ext_resource path="res://goodGuy_spritesheet.png" type="Texture" id=4]
 [ext_resource path="res://bullet_spritesheet.png" type="Texture" id=5]
 [ext_resource path="res://bang_spritesheet.png" type="Texture" id=6]
+[ext_resource path="res://item_spritesheet.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=9]
+
+[sub_resource type="CircleShape2D" id=32]
+radius = 60.0
+
+[sub_resource type="AtlasTexture" id=21]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=22]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 600, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=24]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 200, 200, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=25]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 400, 200, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=26]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 600, 200, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=27]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 0, 400, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=28]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 200, 400, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=29]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 400, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=30]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 200, 0, 200, 200 )
+
+[sub_resource type="SpriteFrames" id=31]
+animations = [ {
+"frames": [ SubResource( 21 ) ],
+"loop": true,
+"name": "bullets",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 22 ) ],
+"loop": true,
+"name": "faster",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 27 ), SubResource( 26 ), SubResource( 25 ) ],
+"loop": true,
+"name": "glow",
+"speed": 7.0
+}, {
+"frames": [ SubResource( 29 ) ],
+"loop": true,
+"name": "health",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 30 ) ],
+"loop": true,
+"name": "slower",
+"speed": 5.0
+} ]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -127,6 +204,26 @@ collision_mask = 31
 
 [node name="mapCollisionShape" type="CollisionShape2D" parent="mazeMap/mapArea"]
 shape = SubResource( 9 )
+
+[node name="itemArea" type="Area2D" parent="mazeMap"]
+scale = Vector2( 0.6, 0.6 )
+collision_layer = 64
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="mazeMap/itemArea"]
+z_index = 5
+shape = SubResource( 32 )
+
+[node name="itemIcon" type="AnimatedSprite" parent="mazeMap/itemArea"]
+z_index = 3
+frames = SubResource( 31 )
+animation = "glow"
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="mazeMap/itemArea"]
+visible = false
+z_index = 1
+frames = SubResource( 31 )
+animation = "glow"
 
 [node name="playerSprite" type="KinematicBody2D" parent="."]
 z_as_relative = false
