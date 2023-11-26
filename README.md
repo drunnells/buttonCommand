@@ -1,4 +1,6 @@
 # Button Command
 One-Button Battle/Maze Game
 
-Going to attempt to submit to game jam: https://itch.io/jam/1-button-jam-2023
+Play on Itch.io: https://drunnells.itch.io/button-command
+
+Originally created for One-Button Game Jam 2023 (but I didn't get it in on time): https://itch.io/jam/1-button-jam-2023
